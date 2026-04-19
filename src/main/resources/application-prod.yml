@@ -1,0 +1,23 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:eureka-server}:${EUREKA_SERVER_PORT:8761}/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  level:
+    com.eureka: WARN
+    org.springframework.cloud.gateway: WARN

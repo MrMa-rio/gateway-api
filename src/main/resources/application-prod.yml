@@ -6,9 +6,11 @@ spring:
     name: gateway-service
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
 
 eureka:
   client:

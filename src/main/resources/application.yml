@@ -8,17 +8,19 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:default}
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-      routes:
-        - id: face-recognition-api
-          uri: lb://face-recognition-api
-          predicates:
-            - Path=/api/v1/face/**
-          filters:
-            - StripPrefix=0
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: face-recognition-api
+              uri: lb://face-recognition-api
+              predicates:
+                - Path=/api/v1/face/**
+              filters:
+                - StripPrefix=0
 
 eureka:
   client:
@@ -37,10 +39,12 @@ logging:
     org.springframework.cloud.gateway: INFO
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  logback:
+    rollingpolicy:
+      max-size: 10MB
+      max-history: 30
   file:
     name: logs/gateway-service.log
-    max-size: 10MB
-    max-history: 30
 
 management:
   endpoints:
